@@ -16,7 +16,7 @@ class TeacherAdapter(
 
         fun bind (teacher: TeacherResponse) {
             binding.fullnameText.text = teacher.name + teacher.lastname
-            binding.emailText.text = teacher.correo
+            binding.emailText.text = teacher.email
             Glide.with(itemView).load(teacher.getTeacherImage()).into(binding.profileImage)
         }
     }

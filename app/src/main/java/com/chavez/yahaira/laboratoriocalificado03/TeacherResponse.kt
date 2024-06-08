@@ -4,7 +4,7 @@ data class TeacherResponse(
     val name: String,
     val lastname: String,
     val phone: String,
-    val correo: String,
+    val email: String,
     val url: String
 ){
 

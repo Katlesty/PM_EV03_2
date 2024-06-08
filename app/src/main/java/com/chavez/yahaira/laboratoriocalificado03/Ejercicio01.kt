@@ -2,7 +2,7 @@ package com.chavez.yahaira.laboratoriocalificado03
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.chavez.yahaira.laboratoriocalificado03.databinding.ActivityMainBinding
+import com.chavez.yahaira.laboratoriocalificado03.databinding.ActivityEjercicio01Binding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,13 +15,12 @@ class Ejercicio01 : AppCompatActivity() {
 
     private val adapter by lazy { TeacherAdapter(listTeacher)}
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityEjercicio01Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-
+        binding = ActivityEjercicio01Binding.inflate(layoutInflater)
+        binding.rvTinderTeacher.adapter = adapter
         setContentView(binding.root)
         getAllTeachers()
     }

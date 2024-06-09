@@ -9,19 +9,20 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Ejercicio01 : AppCompatActivity() {
+class Ejercicio01 : AppCompatActivity(){
 
     private var listTeacher: List<TeacherResponse> = emptyList()
 
-    private val adapter by lazy { TeacherAdapter(listTeacher)}
+    private val adapter by lazy { TeacherAdapter(this,listTeacher)}
 
     private lateinit var binding : ActivityEjercicio01Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityEjercicio01Binding.inflate(layoutInflater)
-        binding.rvTinderTeacher.adapter = adapter
         setContentView(binding.root)
+        binding.recyclerView.adapter = adapter
         getAllTeachers()
     }
 

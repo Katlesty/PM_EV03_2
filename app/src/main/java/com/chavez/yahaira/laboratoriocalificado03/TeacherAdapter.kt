@@ -12,44 +12,34 @@ import com.bumptech.glide.Glide
 import com.chavez.yahaira.laboratoriocalificado03.databinding.ItemTeacherBinding
 
 class TeacherAdapter(
-    val context: Context,
-    var list: List<TeacherResponse>
-): RecyclerView.Adapter<TeacherAdapter.ViewHolder>(){
+    var list: List<TeacherResponse>,
+    private val onDialClick: (String) -> Unit,
+    private val onEmailLongClick: (String) -> Unit
+): RecyclerView.Adapter<TeacherAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val binding = ItemTeacherBinding.bind(view)
 
-        fun bind (teacher: TeacherResponse) {
-            binding.fullnameText.text = teacher.name + teacher.lastname
+        fun bind(teacher: TeacherResponse) {
+            binding.fullnameText.text = teacher.name + " " + teacher.last_name
             binding.emailText.text = teacher.email
-            Glide.with(itemView).load(teacher.getTeacherImage()).into(binding.profileImage)
-            
+            Glide.with(itemView).load(teacher.imageUrl).into(binding.profileImage)
+
             binding.root.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:${teacher.phone}")
-                }
-                context.startActivity(intent)
+                onDialClick(teacher.phone)
             }
 
             binding.root.setOnLongClickListener {
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:${teacher.email}")
-                }
-                if (intent.resolveActivity(context.packageManager) != null) {
-                    context.startActivity(intent)
-                } else {
-                    Toast.makeText(context, "Email no instalado", Toast.LENGTH_SHORT).show()
-                }
+                onEmailLongClick(teacher.email)
                 true
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view= ItemTeacherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemTeacherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view.root)
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemTeacher = list[position]
@@ -57,5 +47,4 @@ class TeacherAdapter(
     }
 
     override fun getItemCount(): Int = list.size
-
 }

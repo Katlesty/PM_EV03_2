@@ -2,15 +2,15 @@ package com.chavez.yahaira.laboratoriocalificado03
 
 data class TeacherResponse(
     val name: String,
-    val lastname: String,
+    val last_name: String,
     val phone: String,
     val email: String,
-    val url: String
+    val imageUrl: String
 ){
 
     private fun getInitialFirstName(): String = name.split(" ")[0].substring(0, 1).lowercase()
 
-    private fun getFirstLastname(): String = lastname.split(" ")[0].lowercase()
+    private fun getFirstLastname(): String = last_name.split(" ")[0].lowercase()
 
     fun getTeacherImage(): String {
         val initialFirstName = getInitialFirstName()
